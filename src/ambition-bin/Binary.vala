@@ -180,6 +180,14 @@ public static int execute_command( bool as_interactive, string? command, string[
 			}
 			return ( m.resolve_plugins() ? 0 : 1 );
 
+		case "valama":
+			var m = new Ambition.Utility.Valama();
+			if ( !in_application() ) {
+				usage( "valama", as_interactive );
+				return 1;
+			}
+			return ( m.run() ? 0 : 1 );
+
 		case "controller":
 		case "model":
 		case "view":
@@ -365,6 +373,13 @@ public static void usage( string? method = null, bool as_interactive = false ) {
 		stdout.printf("dependencies\n");
 		wrap(
 			"Parses actions.conf and resolves plugin dependencies.\n"
+		);
+	}
+
+	if ( method == null || method == "valama" ) {
+		stdout.printf("valama\n");
+		wrap(
+			"Generate a Valama .vlp project file for the current application.\n"
 		);
 	}
 
